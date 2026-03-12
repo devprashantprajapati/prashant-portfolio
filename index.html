@@ -234,7 +234,7 @@ nav.solid{background:rgba(6,6,16,.85);backdrop-filter:blur(20px);-webkit-backdro
 .c-form input,.c-form textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;color:var(--text);font-family:'Inter',sans-serif;font-size:.92rem;outline:none;transition:all .25s;resize:vertical;}
 .c-form input:focus,.c-form textarea:focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.12);}
 .c-form textarea{min-height:110px;}
-.c-submit{width:100%;padding:14px;border-radius:12px;background:var(--g1);color:#fff;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;cursor:none;transition:all .3s var(--ease);letter-spacing:.3px;}
+.c-submit{width:100%;padding:14px;border-radius:12px;background:var(--g1);color:#fff;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;border:none;cursor:pointer;transition:all .3s var(--ease);letter-spacing:.3px;}
 .c-submit:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(139,92,246,.45);}
 
 /* ── FOOTER ── */
@@ -242,6 +242,66 @@ footer{position:relative;z-index:2;border-top:1px solid var(--bdr);text-align:ce
 .ft-logo{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;margin-bottom:10px;}
 footer p{color:var(--dim);font-size:.88rem;}
 .hrt{color:var(--p);display:inline-block;animation:blink 1.5s ease-in-out infinite;}
+
+/* ── FOOTER SOCIAL BAR ── */
+.ft-socials{display:flex;justify-content:center;gap:12px;margin:20px 0 8px;}
+.ft-soc{width:40px;height:40px;border-radius:12px;border:1px solid var(--bdr);background:var(--panel);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);font-size:1rem;transition:all .3s var(--ease);}
+.ft-soc:hover{border-color:var(--v);color:var(--v);background:rgba(139,92,246,.1);transform:translateY(-3px);}
+.ft-soc.yt:hover{border-color:#ff4444;color:#ff4444;background:rgba(255,68,68,.1);}
+.ft-soc.tg:hover{border-color:#2aabee;color:#2aabee;background:rgba(42,171,238,.1);}
+.ft-soc.em:hover{border-color:var(--g);color:var(--g);background:rgba(16,185,129,.1);}
+
+/* ── TERMINAL WIDGET ── */
+.term-wrap{background:#0d0d1a;border:1px solid rgba(139,92,246,.3);border-radius:16px;overflow:hidden;width:320px;flex-shrink:0;box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 40px rgba(139,92,246,.08);font-family:'JetBrains Mono',monospace;animation:avatarFloat 6s ease-in-out infinite;}
+.term-bar{background:rgba(255,255,255,.05);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);}
+.term-dot{width:12px;height:12px;border-radius:50%;}
+.td-r{background:#ff5f57;}.td-y{background:#febc2e;}.td-g{background:#28c840;}
+.term-title{font-size:.72rem;color:var(--dim);margin-left:8px;letter-spacing:.5px;}
+.term-body{padding:16px 18px;font-size:.78rem;line-height:1.85;min-height:160px;}
+.term-line{display:block;white-space:pre;word-break:break-all;}
+.t-prompt{color:#8b5cf6;}.t-cmd{color:#e2e8f0;}.t-out{color:#22d3ee;}.t-comment{color:#4a5568;}.t-str{color:#10b981;}.t-cursor{display:inline-block;width:8px;height:1em;background:#8b5cf6;vertical-align:text-bottom;animation:caretBlink 1s step-end infinite;margin-left:1px;}
+@media(max-width:1100px){.term-wrap{display:none;}}
+
+/* ── DEV SETUP SECTION ── */
+#devsetup{background:var(--panel);border:1px solid var(--bdr);border-radius:28px;padding:60px;margin-bottom:32px;}
+.setup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
+.setup-card{background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:16px;padding:22px 16px;text-align:center;transition:all .35s var(--ease);cursor:default;position:relative;overflow:hidden;}
+.setup-card::before{content:'';position:absolute;inset:0;background:var(--sg,var(--g1));opacity:0;transition:opacity .3s;border-radius:16px;}
+.setup-card:hover{transform:translateY(-8px);border-color:rgba(139,92,246,.4);box-shadow:0 16px 40px rgba(139,92,246,.15);}
+.setup-card:hover::before{opacity:.07;}
+.setup-icon{font-size:2.2rem;margin-bottom:10px;display:block;position:relative;z-index:1;}
+.setup-name{font-size:.88rem;font-weight:700;position:relative;z-index:1;}
+.setup-type{font-size:.73rem;color:var(--muted);margin-top:4px;font-weight:500;position:relative;z-index:1;}
+
+/* ── LEARNING PROGRESS SECTION ── */
+#learning{background:var(--panel);border:1px solid var(--bdr);border-radius:28px;padding:60px;margin-bottom:32px;}
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;}
+.learn-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.03);border:1px solid var(--bdr);border-radius:16px;padding:18px;transition:all .3s var(--ease);}
+.learn-card:hover{border-color:rgba(139,92,246,.35);transform:translateX(5px);background:rgba(139,92,246,.04);}
+.ring-wrap{position:relative;flex-shrink:0;width:52px;height:52px;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-track{fill:none;stroke:rgba(255,255,255,.08);stroke-width:4;}
+.ring-fill{fill:none;stroke-width:4;stroke-linecap:round;stroke-dasharray:125.6;stroke-dashoffset:125.6;transition:stroke-dashoffset 1.4s cubic-bezier(.22,.68,0,1);}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;}
+.learn-info h4{font-size:.92rem;font-weight:700;margin-bottom:4px;}
+.learn-info p{font-size:.78rem;color:var(--muted);line-height:1.5;}
+.learn-badge{display:inline-block;padding:2px 10px;border-radius:var(--pill);font-size:.68rem;font-weight:700;margin-top:6px;}
+.lb-hot{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.lb-cool{background:rgba(34,211,238,.12);color:#22d3ee;border:1px solid rgba(34,211,238,.25);}
+.lb-warm{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.25);}
+
+/* ── CONTACT FORM ENHANCEMENTS ── */
+.c-form select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px;color:var(--text);font-family:'Inter',sans-serif;font-size:.92rem;outline:none;transition:all .25s;appearance:none;cursor:pointer;}
+.c-form select:focus{border-color:var(--v);box-shadow:0 0 0 3px rgba(139,92,246,.12);}
+.c-form select option{background:#0c0c1e;color:var(--text);}
+.field-err{font-size:.75rem;color:#f87171;margin-top:4px;display:none;}
+.field-err.show{display:block;}
+.char-counter{font-size:.73rem;color:var(--dim);text-align:right;margin-top:4px;}
+.char-counter.warn{color:#fbbf24;}
+.char-counter.over{color:#f87171;}
+.c-submit .spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spinRing .7s linear infinite;vertical-align:middle;margin-right:6px;}
+.c-submit.loading .spin{display:inline-block;}
+@keyframes spinRing{to{transform:rotate(360deg)}}
 
 /* ── BACK TO TOP ── */
 #btt{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:14px;background:var(--g1);border:none;color:#fff;font-size:1.2rem;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(139,92,246,.4);opacity:0;transform:translateY(16px);transition:all .35s var(--ease);display:flex;align-items:center;justify-content:center;}
@@ -550,7 +610,7 @@ footer p{animation:fadeInUp .6s var(--ease) .25s both;}
     </div>
   </div>
 
-  <div class="hero-right">
+  <div class="hero-right" style="gap:18px;">
     <div class="avatar-3d spin-border" id="av3d">
       <div class="av-glow" style="position:absolute;inset:-8px;border-radius:28px;background:var(--g1);z-index:0;opacity:.4;filter:blur(20px);"></div>
       <img src="a.jpg" alt="Prashant Prajapati" style="position:relative;z-index:1;border-radius:22px;">
@@ -563,6 +623,17 @@ footer p{animation:fadeInUp .6s var(--ease) .25s both;}
       <div class="chip">🎨 UI/UX</div>
       <div class="chip">🎬 Content Creator</div>
     </div>
+  </div>
+
+  <!-- TERMINAL WIDGET -->
+  <div class="term-wrap" id="termWrap">
+    <div class="term-bar">
+      <div class="term-dot td-r"></div>
+      <div class="term-dot td-y"></div>
+      <div class="term-dot td-g"></div>
+      <span class="term-title">prashant@dev ~ bash</span>
+    </div>
+    <div class="term-body" id="termBody"></div>
   </div>
 
   <div class="scroll-ind">
@@ -769,6 +840,118 @@ footer p{animation:fadeInUp .6s var(--ease) .25s both;}
     </div>
   </div>
 
+  <!-- DEV SETUP -->
+  <div id="devsetup" class="reveal">
+    <p class="sec-label">My Workspace</p>
+    <h2 class="sec-title">Dev <span>Setup</span></h2>
+    <div class="setup-grid">
+      <div class="setup-card">
+        <span class="setup-icon">💻</span>
+        <div class="setup-name">Windows 11</div>
+        <div class="setup-type">Operating System</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">🖥️</span>
+        <div class="setup-name">VS Code</div>
+        <div class="setup-type">Code Editor</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">🐍</span>
+        <div class="setup-name">Python 3</div>
+        <div class="setup-type">Language</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">⚡</span>
+        <div class="setup-name">JavaScript</div>
+        <div class="setup-type">Language</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">🌐</span>
+        <div class="setup-name">Chrome</div>
+        <div class="setup-type">Browser / DevTools</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">🤖</span>
+        <div class="setup-name">Gemini AI</div>
+        <div class="setup-type">AI Assistant</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">👾</span>
+        <div class="setup-name">Git &amp; GitHub</div>
+        <div class="setup-type">Version Control</div>
+      </div>
+      <div class="setup-card">
+        <span class="setup-icon">🎨</span>
+        <div class="setup-name">Figma</div>
+        <div class="setup-type">Design Tool</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNING PROGRESS -->
+  <div id="learning" class="reveal">
+    <p class="sec-label">Growth Tracker</p>
+    <h2 class="sec-title">Currently <span>Learning</span></h2>
+    <div class="learn-grid">
+      <div class="learn-card">
+        <div class="ring-wrap">
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle class="ring-track" cx="26" cy="26" r="20"/>
+            <circle class="ring-fill" cx="26" cy="26" r="20" stroke="#8b5cf6" data-pct="75"/>
+          </svg>
+          <div class="ring-pct" style="color:#8b5cf6;">75%</div>
+        </div>
+        <div class="learn-info">
+          <h4>Advanced Python</h4>
+          <p>OOP, modules &amp; data science libs</p>
+          <span class="learn-badge lb-hot">🔥 Active</span>
+        </div>
+      </div>
+      <div class="learn-card">
+        <div class="ring-wrap">
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle class="ring-track" cx="26" cy="26" r="20"/>
+            <circle class="ring-fill" cx="26" cy="26" r="20" stroke="#22d3ee" data-pct="55"/>
+          </svg>
+          <div class="ring-pct" style="color:#22d3ee;">55%</div>
+        </div>
+        <div class="learn-info">
+          <h4>Machine Learning</h4>
+          <p>Algorithms, sklearn &amp; neural nets</p>
+          <span class="learn-badge lb-cool">🧠 Deep Dive</span>
+        </div>
+      </div>
+      <div class="learn-card">
+        <div class="ring-wrap">
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle class="ring-track" cx="26" cy="26" r="20"/>
+            <circle class="ring-fill" cx="26" cy="26" r="20" stroke="#10b981" data-pct="40"/>
+          </svg>
+          <div class="ring-pct" style="color:#10b981;">40%</div>
+        </div>
+        <div class="learn-info">
+          <h4>React / Next.js</h4>
+          <p>Component-based web frameworks</p>
+          <span class="learn-badge lb-warm">⏳ Early Stage</span>
+        </div>
+      </div>
+      <div class="learn-card">
+        <div class="ring-wrap">
+          <svg width="52" height="52" viewBox="0 0 52 52">
+            <circle class="ring-track" cx="26" cy="26" r="20"/>
+            <circle class="ring-fill" cx="26" cy="26" r="20" stroke="#f59e0b" data-pct="60"/>
+          </svg>
+          <div class="ring-pct" style="color:#f59e0b;">60%</div>
+        </div>
+        <div class="learn-info">
+          <h4>Data Analysis</h4>
+          <p>Pandas, NumPy, Matplotlib</p>
+          <span class="learn-badge lb-warm">📊 In Progress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- YOUTUBE CHANNEL CTA -->
   <div class="yt-banner reveal shimmer">
     <div class="yt-icon-wrap">
@@ -806,11 +989,34 @@ footer p{animation:fadeInUp .6s var(--ease) .25s both;}
           <a class="soc-btn off" href="#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="">GitHub</a>
         </div>
       </div>
-      <form class="c-form" onsubmit="sendMsg(event)">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="John Doe" required></div>
-        <div class="fg"><label>Email Address</label><input type="email" placeholder="john@example.com" required></div>
-        <div class="fg"><label>Message</label><textarea placeholder="Hey Prashant, I'd love to connect…" required></textarea></div>
-        <button class="c-submit" id="csub" type="submit">Send Message 🚀</button>
+      <form class="c-form" id="contactForm" onsubmit="sendMsg(event)">
+        <div class="fg">
+          <label>Your Name</label>
+          <input type="text" id="fname" placeholder="John Doe">
+          <div class="field-err" id="err-name">⚠️ Name is required</div>
+        </div>
+        <div class="fg">
+          <label>Email Address</label>
+          <input type="email" id="femail" placeholder="john@example.com">
+          <div class="field-err" id="err-email">⚠️ Valid email is required</div>
+        </div>
+        <div class="fg">
+          <label>Subject</label>
+          <select id="fsubject">
+            <option value="" disabled selected>Choose a subject…</option>
+            <option value="General">💬 General Inquiry</option>
+            <option value="Collab">🤝 Collaboration</option>
+            <option value="Job">💼 Job / Opportunity</option>
+            <option value="Feedback">⭐ Feedback</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Message</label>
+          <textarea id="fmessage" placeholder="Hey Prashant, I'd love to connect…" maxlength="500"></textarea>
+          <div class="char-counter" id="charCtr">0 / 500</div>
+          <div class="field-err" id="err-msg">⚠️ Message is required</div>
+        </div>
+        <button class="c-submit" id="csub" type="submit"><span class="spin"></span>Send Message 🚀</button>
       </form>
     </div>
   </div>
@@ -834,8 +1040,15 @@ footer p{animation:fadeInUp .6s var(--ease) .25s both;}
 <!-- FOOTER -->
 <footer>
   <div class="ft-logo">Prashant.dev</div>
-  <p>© 2025 Prashant Prajapati · All rights reserved · Crafted with <span class="hrt">❤️</span></p>
-  <div class="visitor-badge"><span class="vb-dot"></span>Session #<span id="vcnt">1</span> · Thanks for visiting!</div>
+  <div class="ft-socials">
+    <a class="ft-soc em" href="mailto:prashantproject01@gmail.com" title="Email">📧</a>
+    <a class="ft-soc tg" href="https://t.me/Prashantprojects" target="_blank" title="Telegram">📨</a>
+    <a class="ft-soc yt" href="https://www.youtube.com/@MasterPCM11" target="_blank" title="YouTube">📺</a>
+    <a class="ft-soc" href="#" title="GitHub (Coming Soon)" style="opacity:.4;pointer-events:none;">👾</a>
+    <a class="ft-soc" href="#" title="LinkedIn (Coming Soon)" style="opacity:.4;pointer-events:none;">💼</a>
+  </div>
+  <p>© <span id="footerYear"></span> Prashant Prajapati &middot; All rights reserved &middot; Crafted with <span class="hrt">❤️</span></p>
+  <div class="visitor-badge"><span class="vb-dot"></span>Session #<span id="vcnt">1</span> &middot; Thanks for visiting!</div>
 </footer>
 
 <!-- PAGE TRANSITION OVERLAY -->
@@ -927,8 +1140,59 @@ const so=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersec
 const skSec=document.getElementById('skills');
 if(skSec)so.observe(skSec);
 
-/* ── FORM ── */
-window.sendMsg=function(e){e.preventDefault();const btn=document.getElementById('csub');btn.textContent='✅ Message Sent!';btn.style.background='linear-gradient(135deg,#10b981,#059669)';btn.disabled=true;setTimeout(()=>{btn.textContent='Send Message 🚀';btn.style.background='';btn.disabled=false;e.target.reset();},3500);};
+/* ── FORM (enhanced) ── */
+(function(){
+  const fname   = document.getElementById('fname');
+  const femail  = document.getElementById('femail');
+  const fmsg    = document.getElementById('fmessage');
+  const charCtr = document.getElementById('charCtr');
+
+  if(fmsg && charCtr){
+    fmsg.addEventListener('input',()=>{
+      const len=fmsg.value.length;
+      charCtr.textContent=`${len} / 500`;
+      charCtr.className='char-counter'+(len>400?' warn':'')+(len>=500?' over':'');
+    });
+  }
+
+  function showErr(id,show){
+    const el=document.getElementById(id);
+    if(el)el.classList.toggle('show',show);
+  }
+  function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+  window.sendMsg=function(e){
+    e.preventDefault();
+    let valid=true;
+    if(!fname||!fname.value.trim()){showErr('err-name',true);valid=false;}else showErr('err-name',false);
+    if(!femail||!validateEmail(femail.value)){showErr('err-email',true);valid=false;}else showErr('err-email',false);
+    if(!fmsg||!fmsg.value.trim()){showErr('err-msg',true);valid=false;}else showErr('err-msg',false);
+    if(!valid)return;
+
+    const btn=document.getElementById('csub');
+    btn.classList.add('loading');
+    btn.disabled=true;
+    btn.querySelector('.spin').style.display='inline-block';
+    setTimeout(()=>{
+      btn.classList.remove('loading');
+      btn.disabled=false;
+      btn.querySelector('.spin').style.display='none';
+      btn.innerHTML='<span class="spin"></span>✅ Message Sent!';
+      btn.style.background='linear-gradient(135deg,#10b981,#059669)';
+      setTimeout(()=>{
+        btn.innerHTML='<span class="spin"></span>Send Message 🚀';
+        btn.style.background='';
+        e.target.reset();
+        if(charCtr)charCtr.textContent='0 / 500';
+      },3500);
+    },1600);
+  };
+
+  // Clear error on input
+  if(fname)fname.addEventListener('input',()=>showErr('err-name',false));
+  if(femail)femail.addEventListener('input',()=>showErr('err-email',false));
+  if(fmsg)fmsg.addEventListener('input',()=>showErr('err-msg',false));
+})();
 
 /* ── BACK TO TOP ── */
 const btt=document.getElementById('btt');
@@ -1221,6 +1485,145 @@ document.querySelectorAll('.stat-n').forEach(el=>{
   localStorage.setItem('visit_count',v);
   const el=document.getElementById('vcnt');
   if(el)el.textContent=v;
+})();
+
+/* ── AUTO FOOTER YEAR ── */
+(function(){
+  const yr=document.getElementById('footerYear');
+  if(yr)yr.textContent=new Date().getFullYear();
+})();
+
+/* ── TERMINAL ANIMATION ── */
+(function(){
+  const body=document.getElementById('termBody');
+  if(!body)return;
+
+  const snippets=[
+    [
+      {cls:'t-prompt',t:'➜  '},
+      {cls:'t-cmd',t:'python3 '},
+      {cls:'t-str',t:'main.py'},
+      {t:'\n'},{cls:'t-out',t:'Training model...'},
+      {t:'\n'},{cls:'t-out',t:'Accuracy: '},
+      {cls:'t-str',t:'98.7%'},
+      {t:'\n'},{cls:'t-comment',t:'# ✅ Model ready!'},
+    ],
+    [
+      {cls:'t-prompt',t:'➜  '},
+      {cls:'t-cmd',t:'git '},
+      {cls:'t-str',t:'commit -m "feat: add AI module"'},
+      {t:'\n'},{cls:'t-out',t:'[main 4a9f2c] feat: add AI module'},
+      {t:'\n'},{cls:'t-out',t:' 3 files changed, 142 insertions'},
+      {t:'\n'},{cls:'t-comment',t:'# 🚀 Pushing to GitHub...'},
+    ],
+    [
+      {cls:'t-prompt',t:'➜  '},
+      {cls:'t-cmd',t:'npm '},
+      {cls:'t-str',t:'run dev'},
+      {t:'\n'},{cls:'t-out',t:'  ➜  Local:   '},
+      {cls:'t-str',t:'http://localhost:5173/'},
+      {t:'\n'},{cls:'t-out',t:'  ➜  Network: 192.168.1.5'},
+      {t:'\n'},{cls:'t-comment',t:'# 🌐 Ready in 312ms'},
+    ],
+    [
+      {cls:'t-prompt',t:'➜  '},
+      {cls:'t-cmd',t:'python3 -c '},
+      {cls:'t-str',t:'"import this"'},
+      {t:'\n'},{cls:'t-out',t:'Beautiful is better than ugly.'},
+      {t:'\n'},{cls:'t-out',t:'Simple > Complex.'},
+      {t:'\n'},{cls:'t-comment',t:'# 🐍 The Zen of Python'},
+    ],
+  ];
+
+  let si=0;
+
+  function runSnippet(){
+    body.innerHTML='';
+    const lines=snippets[si];
+    let ci=0;
+    let allText='';
+
+    // Build full string first
+    const flat=lines.map(l=>l.t).join('');
+    const spans=[];
+    let charIdx=0;
+
+    // Pre-create spans
+    lines.forEach(l=>{
+      if(l.t==='\n'){spans.push({nl:true});return;}
+      const s=document.createElement('span');
+      if(l.cls)s.className=l.t==='  '?'':l.cls;
+      s.className=l.cls||'';
+      s.textContent='';
+      body.appendChild(s);
+      spans.push({el:s,text:l.t});
+    });
+
+    // Add cursor
+    const cur=document.createElement('span');
+    cur.className='t-cursor';
+    body.appendChild(cur);
+
+    // Flatten for typing
+    const chars=[];
+    let spanIdx=0;
+    spans.forEach((sp,i)=>{
+      if(sp.nl){chars.push({nl:true,si:i});return;}
+      for(const ch of sp.text) chars.push({ch,si:i});
+    });
+
+    // Rebuild body properly with spans and BRs interspersed
+    body.innerHTML='';
+    const renderedSpans=[];
+    spans.forEach(sp=>{
+      if(sp.nl){const br=document.createElement('br');body.appendChild(br);renderedSpans.push({br:true});}
+      else{const s=document.createElement('span');s.className=sp.el?sp.el.className:'';s.textContent='';body.appendChild(s);renderedSpans.push({el:s,text:sp.text,done:0});}
+    });
+    body.appendChild(cur);
+
+    // Type each char
+    let cIdx=0;
+    const flatChars=[];
+    renderedSpans.forEach((rs,i)=>{
+      if(rs.br)return;
+      for(const ch of rs.text)flatChars.push({ch,rs});
+    });
+
+    function typeNext(){
+      if(cIdx>=flatChars.length){
+        // done — wait then cycle
+        setTimeout(()=>{
+          si=(si+1)%snippets.length;
+          runSnippet();
+        },2800);
+        return;
+      }
+      const {ch,rs}=flatChars[cIdx++];
+      rs.el.textContent+=ch;
+      setTimeout(typeNext,30+Math.random()*35);
+    }
+    setTimeout(typeNext,200);
+  }
+
+  runSnippet();
+})();
+
+/* ── LEARNING PROGRESS RINGS ── */
+(function(){
+  const rings=document.querySelectorAll('.ring-fill');
+  if(!rings.length)return;
+  const rObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const ring=e.target;
+      const pct=parseFloat(ring.dataset.pct)||0;
+      const circ=125.6; // 2*pi*r = 2*pi*20
+      const offset=circ-(pct/100)*circ;
+      ring.style.strokeDashoffset=offset;
+      rObs.unobserve(ring);
+    });
+  },{threshold:.3});
+  rings.forEach(r=>rObs.observe(r));
 })();
 
 })();
