@@ -77,8 +77,9 @@ body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:56px;height:5
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;transition:all .4s;}
 nav.solid{background:rgba(6,6,16,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);box-shadow:0 4px 40px rgba(0,0,0,.5);}
 .nav-i{max-width:1200px;margin:auto;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-brand img{width:38px;height:38px;object-fit:cover;border-radius:10px;border:2px solid rgba(139,92,246,.5);box-shadow:0 0 16px rgba(139,92,246,.3);}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-brand img{width:54px;height:54px;object-fit:cover;border-radius:14px;border:2.5px solid rgba(157,111,255,.7);box-shadow:0 0 22px rgba(157,111,255,.45),0 0 6px rgba(157,111,255,.3);transition:all .3s var(--ease);cursor:pointer;}
+.nav-brand img:hover{transform:scale(1.08);box-shadow:0 0 36px rgba(157,111,255,.7),0 0 12px rgba(244,114,182,.4);border-color:rgba(244,114,182,.8);}
 .nav-brand span{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .nav-links{display:flex;gap:4px;list-style:none;}
 .nav-links a{padding:8px 16px;border-radius:var(--pill);color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:all .25s;letter-spacing:.2px;}
@@ -543,6 +544,19 @@ footer p:first-of-type{animation:fadeInUp .6s var(--ease) .25s both;}
 .live-stat .live-num{font-family:'JetBrains Mono',monospace;color:var(--v);font-size:1rem;font-weight:700;min-width:3ch;text-align:right;}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);animation:blink 1.4s ease-in-out infinite;flex-shrink:0;}
 
+/* ── LOGO LIGHTBOX ── */
+#logo-lb{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease;}
+#logo-lb.open{opacity:1;pointer-events:all;}
+#logo-lb-bg{position:absolute;inset:0;background:rgba(3,3,15,.85);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);cursor:pointer;}
+#logo-lb-card{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:20px;transform:scale(.7) translateY(30px);opacity:0;transition:transform .5s cubic-bezier(.22,.68,0,1.2),opacity .4s ease;}
+#logo-lb.open #logo-lb-card{transform:scale(1) translateY(0);opacity:1;}
+#logo-lb-frame{position:relative;border-radius:28px;padding:5px;background:conic-gradient(from 0deg,#9d6fff,#f472b6,#06e8ff,#0fd47a,#9d6fff);animation:spinBorder 3s linear infinite;box-shadow:0 0 80px rgba(157,111,255,.5),0 0 30px rgba(6,232,255,.2);}
+#logo-lb-img{display:block;width:min(320px,80vw);height:min(320px,80vw);object-fit:cover;border-radius:24px;border:3px solid rgba(255,255,255,.1);}
+#logo-lb-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#c4a6ff,#f472b6,#06e8ff);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.5px;}
+#logo-lb-sub{font-family:'Poppins',sans-serif;font-size:.9rem;color:var(--muted);letter-spacing:.3px;}
+#logo-lb-close{position:fixed;top:24px;right:24px;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;backdrop-filter:blur(8px);z-index:2;}
+#logo-lb-close:hover{background:rgba(244,114,182,.2);border-color:rgba(244,114,182,.4);transform:rotate(90deg) scale(1.1);}
+
 /* ── BTT HOVER LABEL ── */
 #btt-label{position:fixed;bottom:96px;right:32px;background:rgba(15,15,30,.92);color:var(--muted);border:1px solid var(--bdr);border-radius:10px;padding:5px 12px;font-size:.72rem;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(8px);z-index:499;}
 #btt-label.show{opacity:1;}
@@ -604,7 +618,7 @@ nav.solid{
   box-shadow:0 4px 48px rgba(0,0,0,.7),inset 0 -1px 0 rgba(255,255,255,.04);
 }
 .nav-brand span{font-family:'Syne',sans-serif;letter-spacing:-.5px;}
-.nav-brand img{border-radius:12px;border:2px solid rgba(157,111,255,.6);box-shadow:0 0 20px rgba(157,111,255,.4);}
+.nav-brand img{width:54px;height:54px;border-radius:14px;border:2.5px solid rgba(157,111,255,.6);box-shadow:0 0 24px rgba(157,111,255,.4);}
 .nav-links a{font-family:'Poppins',sans-serif;font-size:.84rem;letter-spacing:.1px;border-radius:10px;}
 .nav-links a.active{background:rgba(157,111,255,.15);border:1px solid rgba(157,111,255,.2);color:#c4a6ff;}
 .nav-cta{background:var(--g1);border-radius:12px;font-family:'Poppins',sans-serif;padding:9px 24px;box-shadow:0 4px 20px rgba(157,111,255,.35),inset 0 1px 0 rgba(255,255,255,.2);}
@@ -1701,7 +1715,7 @@ body{overflow-x:hidden;}
 <nav id="nav">
   <div class="nav-i">
     <a class="nav-brand" href="#home">
-      <img src="b.jpg" alt="Logo">
+      <img src="b.jpg" alt="Logo" id="navLogo" title="Click to view logo">
       <span>Prashant.dev</span>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -2220,6 +2234,19 @@ body{overflow-x:hidden;}
   </div>
 
 </div><!-- /wrap -->
+
+<!-- LOGO LIGHTBOX MODAL -->
+<div id="logo-lb" role="dialog" aria-modal="true" aria-label="Logo preview">
+  <div id="logo-lb-bg"></div>
+  <div id="logo-lb-card">
+    <div id="logo-lb-frame">
+      <img id="logo-lb-img" src="b.jpg" alt="Prashant Prajapati">
+    </div>
+    <div id="logo-lb-name">Prashant Prajapati</div>
+    <div id="logo-lb-sub">Developer · AI Enthusiast · Creator</div>
+  </div>
+  <button id="logo-lb-close" aria-label="Close">&times;</button>
+</div>
 
 <!-- BACK TO TOP -->
 <button id="btt" aria-label="Back to top" title="Back to top">↑</button>
@@ -2911,6 +2938,45 @@ document.querySelectorAll('.stat-n').forEach(el=>{
     });
   },{threshold:.3});
   rings.forEach(r=>rObs.observe(r));
+})();
+
+/* ── LOGO LIGHTBOX ── */
+(function(){
+  const logo=document.getElementById('navLogo');
+  const lb=document.getElementById('logo-lb');
+  const lbBg=document.getElementById('logo-lb-bg');
+  const lbClose=document.getElementById('logo-lb-close');
+  if(!logo||!lb)return;
+
+  function openLb(e){
+    e.preventDefault();
+    e.stopPropagation();
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+    // particle burst from logo position
+    const r=logo.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const sparkC=['#9d6fff','#f472b6','#06e8ff','#0fd47a'];
+    for(let i=0;i<16;i++){
+      const p=document.createElement('div');
+      p.className='particle';
+      const a=Math.random()*Math.PI*2,d=40+Math.random()*80;
+      const c=sparkC[i%sparkC.length];
+      p.style.cssText=`left:${cx}px;top:${cy}px;background:${c};--tx:${Math.cos(a)*d}px;--ty:${Math.sin(a)*d}px;animation-duration:.6s;width:7px;height:7px;border-radius:50%;`;
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),700);
+    }
+  }
+
+  function closeLb(){
+    lb.classList.remove('open');
+    document.body.style.overflow='';
+  }
+
+  logo.addEventListener('click',openLb);
+  lbBg.addEventListener('click',closeLb);
+  lbClose.addEventListener('click',closeLb);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lb.classList.contains('open'))closeLb();});
 })();
 
 })();
