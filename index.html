@@ -15,6 +15,21 @@
 <meta name="twitter:description" content="Coding & AI Enthusiast | Web Developer | Science Explorer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 <title>Prashant Prajapati · Portfolio</title>
+<link rel="canonical" href="https://prashantprojects7x.github.io/prashant-portfolio/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Prashant Prajapati",
+  "jobTitle": "Web Developer & AI Enthusiast",
+  "url": "https://prashantprojects7x.github.io/prashant-portfolio/",
+  "image": "https://prashantprojects7x.github.io/prashant-portfolio/a.webp",
+  "sameAs": [
+    "https://t.me/Prashantprojects",
+    "https://www.youtube.com/@MasterPCM11"
+  ]
+}
+</script>
 <link rel="preload" as="image" href="b.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +65,7 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);max-width:100vw;overflow-x:hidden;cursor:none;}
 
 /* ── NOISE TEXTURE ── */
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:.6;}
@@ -83,7 +98,7 @@ nav.solid{background:rgba(6,6,16,.85);backdrop-filter:blur(20px);-webkit-backdro
 .nav-brand img:hover{transform:scale(1.08);box-shadow:0 0 36px rgba(157,111,255,.7),0 0 12px rgba(244,114,182,.4);border-color:rgba(244,114,182,.8);}
 .nav-brand span{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .nav-links{display:flex;gap:4px;list-style:none;}
-.nav-links a{padding:8px 16px;border-radius:var(--pill);color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:all .25s;letter-spacing:.2px;}
+.nav-links a{display:inline-flex;align-items:center;padding:10px 16px;min-height:44px;border-radius:var(--pill);color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:all .25s;letter-spacing:.2px;}
 .nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--panel-h);}
 .nav-links a.active{color:var(--v);background:rgba(139,92,246,.12);}
 .nav-cta{padding:9px 22px;border-radius:var(--pill);background:var(--g1);color:#fff;font-weight:700;font-size:.88rem;text-decoration:none;transition:all .3s var(--ease);box-shadow:0 4px 20px rgba(139,92,246,.3);}
@@ -2222,17 +2237,17 @@ body{overflow-x:hidden;}
       </div>
       <form class="c-form" id="contactForm" onsubmit="sendMsg(event)">
         <div class="fg">
-          <label>Your Name</label>
+          <label for="fname">Your Name</label>
           <input type="text" id="fname" placeholder="John Doe">
           <div class="field-err" id="err-name">⚠️ Name is required</div>
         </div>
         <div class="fg">
-          <label>Email Address</label>
+          <label for="femail">Email Address</label>
           <input type="email" id="femail" placeholder="john@example.com">
           <div class="field-err" id="err-email">⚠️ Valid email is required</div>
         </div>
         <div class="fg">
-          <label>Subject</label>
+          <label for="fsubject">Subject</label>
           <select id="fsubject">
             <option value="" disabled selected>Choose a subject…</option>
             <option value="General">💬 General Inquiry</option>
@@ -2242,7 +2257,7 @@ body{overflow-x:hidden;}
           </select>
         </div>
         <div class="fg">
-          <label>Message</label>
+          <label for="fmessage">Message</label>
           <textarea id="fmessage" placeholder="Hey Prashant, I'd love to connect…" maxlength="500"></textarea>
           <div class="char-counter" id="charCtr">0 / 500</div>
           <div class="field-err" id="err-msg">⚠️ Message is required</div>
