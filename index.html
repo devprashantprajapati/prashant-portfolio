@@ -758,13 +758,15 @@ nav.solid{
 }
 
 /* ─ SECTION PANELS (glass upgrade) ─ */
-#about,#experience,#skills,#certifications,#contact,#devsetup,#learning,#quotes{
+#about,#experience,#skills,#certifications,#contact,#devsetup,#learning,#quotes,#heatmap,#testimonials{
   background:var(--glass);
   border:1px solid rgba(157,111,255,.1);
   border-radius:32px;
   box-shadow:var(--card-shadow),inset 0 1px 0 rgba(255,255,255,.04);
   backdrop-filter:blur(24px) saturate(160%);
   -webkit-backdrop-filter:blur(24px) saturate(160%);
+  padding:60px;
+  margin-bottom:32px;
 }
 
 /* ─ ABOUT ─ */
@@ -1084,7 +1086,6 @@ nav.solid{
 }
 
 /* ─ HEATMAP ─ */
-#heatmap{background:var(--glass);}
 .heatmap-wrap{
   background:rgba(255,255,255,.015);
   border:1px solid rgba(255,255,255,.06);
@@ -1109,7 +1110,6 @@ nav.solid{
 }
 
 /* ─ TESTIMONIALS ─ */
-#testimonials{background:var(--glass);}
 .testi-wrap{position:relative;}
 .testi-track{
   display:flex;gap:24px;overflow-x:auto;
@@ -1488,6 +1488,12 @@ body{overflow-x:hidden;}
   .learn-grid{grid-template-columns:1fr;gap:12px;}
   .learn-card{padding:14px;}
 
+  /* Heatmap */
+  #heatmap{padding:36px 20px;}
+  .heatmap-wrap{padding:16px;}
+  .h-box{width:10px;height:10px;border-radius:2px;}
+  .heatmap-grid{gap:3px;}
+
   /* YouTube */
   .yt-banner{
     flex-direction:column;
@@ -1559,6 +1565,11 @@ body{overflow-x:hidden;}
   .hero h1{font-size:clamp(2rem,9vw,2.8rem);letter-spacing:-1px;}
   .hero-sub{font-size:1rem;}
   .hero-desc{font-size:.93rem;}
+
+  /* Heatmap small phones */
+  #heatmap{padding:28px 16px;}
+  .h-box{width:8px;height:8px;}
+  .heatmap-grid{gap:2px;}
   .sec-title{font-size:clamp(1.5rem,6vw,2rem);letter-spacing:-1px;margin-bottom:28px;}
 
   /* Nav */
@@ -1715,6 +1726,79 @@ body{overflow-x:hidden;}
   }
 }
 
+/* ════════════════════════════════════════════════
+   MOBILE PERFORMANCE — disable GPU-heavy effects
+   Targets: touch devices and screens ≤ 768px
+════════════════════════════════════════════════ */
+@media (hover:none),(max-width:768px){
+  /* — Hide desktop-only cursor elements — */
+  #cur-dot,#cur-ring{display:none!important;}
+  body{cursor:auto!important;}
+
+  /* — Hide star canvas (heaviest rAF loop) — */
+  #c{display:none!important;}
+
+  /* — Kill glitch pseudo-element animations — */
+  .glitch::before,.glitch::after{display:none!important;}
+
+  /* — Kill shimmer scan animation on cards — */
+  .shimmer::after{display:none!important;}
+
+  /* — Kill spin-border conic-gradient rotation — */
+  .spin-border::before{animation:none!important;}
+
+  /* — Stop chip float animations — */
+  .chip{animation:none!important;transform:none!important;}
+
+  /* — Stop avatar float animation — */
+  .avatar-3d{animation:none!important;}
+  .avatar-3d:hover{animation:none!important;}
+
+  /* — Stop terminal widget float — */
+  .term-wrap{animation:none!important;}
+
+  /* — Simplify blob animations (they're large blurred elements) — */
+  .blob{animation:none!important;}
+
+  /* — Stop timeline dot pulse ring — */
+  .tl-dot{animation:none!important;}
+
+  /* — Stop skill bar glow pulse — */
+  .sk-fill.filled{animation:none!important;box-shadow:none!important;}
+
+  /* — Stop YT logo float animation — */
+  .yt-logo-spin img{animation:none!important;}
+
+  /* — Kill ytGlow pseudo animation — */
+  .yt-banner::after{animation:none!important;}
+
+  /* — Remove backdrop-filter blur (most expensive CSS property on mobile) — */
+  #about,#experience,#skills,#certifications,#contact,
+  #devsetup,#learning,#quotes,#heatmap,#testimonials,
+  #funfacts,.proj-card,.term-wrap,.soc-btn,.int-pill,
+  .chip,.atag,.hero-pill,.status-strip,.btn-mag.sec,
+  .btn-cv,.ft-soc,.visitor-badge,nav.solid,
+  .nav-links.open,.cert-item,.c-item,.learn-card,
+  .setup-card,.fact-front,.fact-back,.quote-nav,
+  .yt-stat,.yt-banner{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  /* — Simplify section box shadows for better compositing — */
+  #about,#experience,#skills,#certifications,#contact,
+  #devsetup,#learning,#quotes,#heatmap,#testimonials{
+    box-shadow:0 4px 16px rgba(0,0,0,.4)!important;
+  }
+
+  /* — Reduce hero text gradient animation — */
+  .hero h1 .grd{animation:none!important;background-position:0% 50%!important;}
+
+  /* — Keep transitions but shorter for snappier feel — */
+  .reveal{transition:opacity .4s ease,transform .4s ease!important;}
+  .proj-card{transition:border-color .3s,box-shadow .3s!important;}
+}
+
 </style>
 </head>
 <body>
@@ -1774,7 +1858,7 @@ body{overflow-x:hidden;}
     <div class="hero-btns">
       <a class="btn-mag pri" href="#projects">View Projects ↗</a>
       <a class="btn-mag sec" href="#contact">Let's Connect →</a>
-      <a class="btn-cv" href="#" download title="Download Resume">📄 Download CV</a>
+      <a class="btn-cv" href="#" id="cvBtn" title="Download Resume">📄 Download CV</a>
     </div>
   </div>
 
@@ -1911,6 +1995,20 @@ body{overflow-x:hidden;}
     <p class="sec-label">What I've Built</p>
     <h2 class="sec-title">Featured <span>Projects</span></h2>
     <div class="proj-grid">
+
+      <div class="proj-card shimmer">
+        <div class="proj-thumb" style="position:relative;">
+          <div class="bg" style="background:linear-gradient(135deg,#0f172a,#1e3a8a,#3b82f6);"></div>
+          <div class="emoji" style="font-size:3.5rem;">📄</div>
+          <span class="proj-tech-label">React · Vite · AI</span>
+        </div>
+        <div class="proj-body">
+          <h4>Resumora AI</h4>
+          <p>A premium, AI-powered resume builder designed to help users formulate professional, highly-tailored standout resumes effortlessly.</p>
+          <div class="ptags"><span class="ptag">React</span><span class="ptag">AI/ML</span><span class="ptag">Vite</span></div>
+          <a class="proj-link" href="https://resumoraai.netlify.app/" target="_blank">View Project ↗</a>
+        </div>
+      </div>
 
       <div class="proj-card shimmer">
         <div class="proj-thumb" style="position:relative;">
@@ -2192,26 +2290,26 @@ body{overflow-x:hidden;}
       <div class="testi-track" id="testiTrack">
         <div class="testi-card">
           <div class="t-quote">"</div>
-          <p class="t-text">Prashant is an incredibly dedicated learner and developer. His eye for design and attention to detail makes every project shine.</p>
+          <p class="t-text">Prashant has an incredible passion for learning. Watching him go from basics to building full animated portfolios and AI projects in just a year is genuinely inspiring.</p>
+          <div class="t-author">
+            <div class="t-av">R</div>
+            <div class="t-info"><h4>Rahul S.</h4><span>Classmate & Study Partner</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="t-quote">"</div>
+          <p class="t-text">Prashant's tutorials on PCM topics are clear, structured, and student-friendly. He explains complex concepts in a way that actually sticks. Subscribed and never looked back!</p>
           <div class="t-author">
             <div class="t-av">A</div>
-            <div class="t-info"><h4>Alex Doe</h4><span>Senior Developer</span></div>
+            <div class="t-info"><h4>Ananya P.</h4><span>YouTube Subscriber</span></div>
           </div>
         </div>
         <div class="testi-card">
           <div class="t-quote">"</div>
-          <p class="t-text">Working with Prashant was a breeze. He delivered a stunning frontend that exceeded all our expectations within the deadline!</p>
+          <p class="t-text">The attention to detail in everything Prashant builds — from the animations to the code structure — is remarkable for someone still in school. Excited to see what's next!</p>
           <div class="t-author">
-            <div class="t-av">S</div>
-            <div class="t-info"><h4>Sarah Smith</h4><span>Product Manager</span></div>
-          </div>
-        </div>
-        <div class="testi-card">
-          <div class="t-quote">"</div>
-          <p class="t-text">A great collaborator and a fast learner. Prashant's ability to pick up new frameworks and immediately apply them is impressive.</p>
-          <div class="t-author">
-            <div class="t-av">M</div>
-            <div class="t-info"><h4>Michael Chen</h4><span>Tech Lead</span></div>
+            <div class="t-av">K</div>
+            <div class="t-info"><h4>Karan M.</h4><span>Telegram Community Member</span></div>
           </div>
         </div>
       </div>
@@ -2232,7 +2330,7 @@ body{overflow-x:hidden;}
           <a class="soc-btn" href="https://t.me/Prashantprojects" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="">Telegram</a>
           <a class="soc-btn" href="https://www.youtube.com/@MasterPCM11" target="_blank" style="border-color:rgba(255,0,0,.3);"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="">YouTube</a>
           <a class="soc-btn cs" href="#" data-tip="🚧 Coming Soon!" onclick="return false;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="">LinkedIn</a>
-          <a class="soc-btn cs" href="#" data-tip="🚧 Coming Soon!" onclick="return false;"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="">GitHub</a>
+          <a class="soc-btn" href="https://github.com/prashantprojects7x" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="">GitHub</a>
         </div>
       </div>
       <form class="c-form" id="contactForm" onsubmit="sendMsg(event)">
@@ -2304,11 +2402,11 @@ body{overflow-x:hidden;}
     <a class="ft-soc em" href="mailto:prashantproject01@gmail.com" title="Email">📧</a>
     <a class="ft-soc tg" href="https://t.me/Prashantprojects" target="_blank" title="Telegram">📨</a>
     <a class="ft-soc yt" href="https://www.youtube.com/@MasterPCM11" target="_blank" title="YouTube">📺</a>
-    <a class="ft-soc" href="#" title="GitHub (Coming Soon)" style="opacity:.4;pointer-events:none;">👾</a>
+    <a class="ft-soc" href="https://github.com/prashantprojects7x" target="_blank" title="GitHub">👾</a>
     <a class="ft-soc" href="#" title="LinkedIn (Coming Soon)" style="opacity:.4;pointer-events:none;">💼</a>
   </div>
   <p>© <span id="footerYear"></span> Prashant Prajapati &middot; All rights reserved &middot; Crafted with <span class="hrt">❤️</span></p>
-  <p style="color:var(--dim);font-size:.78rem;margin-top:6px;">Last updated: March 2026</p>
+  <p style="color:var(--dim);font-size:.78rem;margin-top:6px;">Last updated: <span id="lastUpdated"></span></p>
   <div class="visitor-badge"><span class="vb-dot"></span>Session #<span id="vcnt">1</span> &middot; Thanks for visiting!</div>
 </footer>
 
@@ -2321,22 +2419,28 @@ body{overflow-x:hidden;}
 (function(){
 'use strict';
 
+/* ── MOBILE DETECTION — gate all heavy desktop-only features ── */
+const isMobile=('ontouchstart' in window)||(navigator.maxTouchPoints>0)||window.innerWidth<=768;
+
 /* ── PRELOADER ── */
 let prog=0;
 const bar=document.getElementById('prebar');
 const pre=document.getElementById('preloader');
 const iv=setInterval(()=>{
   prog+=Math.random()*18+6;
-  if(prog>100){prog=100;clearInterval(iv);setTimeout(()=>{pre.classList.add('hide');document.body.style.cursor='none';},300);}
+  // On mobile restore cursor to auto (not `none`) when preloader hides
+  if(prog>100){prog=100;clearInterval(iv);setTimeout(()=>{pre.classList.add('hide');document.body.style.cursor=isMobile?'auto':'none';},300);}
   bar.style.width=prog+'%';
 },80);
 
-/* ── CURSOR ── */
+/* ── CURSOR (desktop only) ── */
 const dot=document.getElementById('cur-dot');
 const ring=document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+if(!isMobile){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  (function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+}
 
 /* ── SCROLL PROGRESS ── */
 const spb=document.getElementById('spb');
@@ -2367,22 +2471,24 @@ window.addEventListener('scroll',()=>{
   navAs.forEach((a,i)=>a.classList.toggle('active',i===ai));
 },{passive:true});
 
-/* ── STAR CANVAS ── */
-const cv=document.getElementById('c');
-const cx=cv.getContext('2d');
-let stars=[];
-function rsz(){cv.width=innerWidth;cv.height=innerHeight;}
-function mkStars(){stars=[];const n=Math.floor(cv.width*cv.height/5500);for(let i=0;i<n;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.2,o:Math.random()*.7+.1,d:Math.random()>.5?1:-1,sp:Math.random()*.5+.07});}
-function drawStars(){cx.clearRect(0,0,cv.width,cv.height);stars.forEach(s=>{s.o+=s.sp*s.d*.01;if(s.o>.9||s.o<.1)s.d*=-1;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(255,255,255,${s.o})`;cx.fill();});requestAnimationFrame(drawStars);}
-rsz();mkStars();drawStars();
-window.addEventListener('resize',()=>{rsz();mkStars();});
+/* ── STAR CANVAS (desktop only — too heavy for mobile) ── */
+if(!isMobile){
+  const cv=document.getElementById('c');
+  const ctx=cv.getContext('2d');
+  let stars=[];
+  function rsz(){cv.width=innerWidth;cv.height=innerHeight;}
+  function mkStars(){stars=[];const n=Math.floor(cv.width*cv.height/5500);for(let i=0;i<n;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.2,o:Math.random()*.7+.1,d:Math.random()>.5?1:-1,sp:Math.random()*.5+.07});}
+  function drawStars(){ctx.clearRect(0,0,cv.width,cv.height);stars.forEach(s=>{s.o+=s.sp*s.d*.01;if(s.o>.9||s.o<.1)s.d*=-1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.fill();});requestAnimationFrame(drawStars);}
+  rsz();mkStars();drawStars();
+  window.addEventListener('resize',()=>{rsz();mkStars();});
+}
 
-/* ── 3D TILT AVATAR ── */
+/* ── 3D TILT AVATAR (desktop only) ── */
 const av=document.getElementById('av3d');
-if(av){av.addEventListener('mousemove',e=>{const r=av.getBoundingClientRect();const ox=((e.clientX-r.left)/r.width-.5)*22;const oy=((e.clientY-r.top)/r.height-.5)*-22;av.style.transform=`perspective(600px) rotateY(${ox}deg) rotateX(${oy}deg) scale(1.03)`;});av.addEventListener('mouseleave',()=>{av.style.transform='perspective(600px) rotateY(0) rotateX(0) scale(1)';});}
+if(av&&!isMobile){av.addEventListener('mousemove',e=>{const r=av.getBoundingClientRect();const ox=((e.clientX-r.left)/r.width-.5)*22;const oy=((e.clientY-r.top)/r.height-.5)*-22;av.style.transform=`perspective(600px) rotateY(${ox}deg) rotateX(${oy}deg) scale(1.03)`;});av.addEventListener('mouseleave',()=>{av.style.transform='perspective(600px) rotateY(0) rotateX(0) scale(1)';});}
 
-/* ── MOUSE TRAIL (throttled to 60fps) ── */
-(function(){
+/* ── MOUSE TRAIL (desktop only — DOM thrashing on mobile) ── */
+if(!isMobile)(function(){
   const trailColors=['rgba(157,111,255,.6)','rgba(6,232,255,.5)','rgba(244,114,182,.5)'];
   let tIdx=0,lastT=0;
   document.addEventListener('mousemove',e=>{
@@ -2508,33 +2614,39 @@ function updateDots(){
 window.addEventListener('scroll',updateDots,{passive:true});
 updateDots();
 
-/* ── SPOTLIGHT ── */
+/* ── SPOTLIGHT (desktop only — style mutation on every mousemove) ── */
 const spl=document.getElementById('spotlight');
-document.addEventListener('mousemove',e=>{
-  spl.style.background=`radial-gradient(circle 380px at ${e.clientX}px ${e.clientY}px,rgba(139,92,246,.09) 0%,transparent 70%)`;
-});
-
-/* ── MAGNETIC BUTTONS ── */
-document.querySelectorAll('.btn-mag').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const ox=(e.clientX-r.left-r.width/2)*.35;
-    const oy=(e.clientY-r.top-r.height/2)*.35;
-    btn.style.transform=`translate(${ox}px,${oy}px) translateY(-3px)`;
+if(!isMobile){
+  document.addEventListener('mousemove',e=>{
+    spl.style.background=`radial-gradient(circle 380px at ${e.clientX}px ${e.clientY}px,rgba(139,92,246,.09) 0%,transparent 70%)`;
   });
-  btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
-});
+}
 
-/* ── PROJECT CARD 3D TILT ── */
-document.querySelectorAll('.proj-card').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const ox=((e.clientX-r.left)/r.width-.5)*18;
-    const oy=((e.clientY-r.top)/r.height-.5)*-18;
-    card.style.transform=`perspective(900px) rotateY(${ox}deg) rotateX(${oy}deg) translateY(-10px)`;
+/* ── MAGNETIC BUTTONS (desktop only) ── */
+if(!isMobile){
+  document.querySelectorAll('.btn-mag').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const ox=(e.clientX-r.left-r.width/2)*.35;
+      const oy=(e.clientY-r.top-r.height/2)*.35;
+      btn.style.transform=`translate(${ox}px,${oy}px) translateY(-3px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
   });
-  card.addEventListener('mouseleave',()=>{card.style.transform='';});
-});
+}
+
+/* ── PROJECT CARD 3D TILT (desktop only) ── */
+if(!isMobile){
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const ox=((e.clientX-r.left)/r.width-.5)*18;
+      const oy=((e.clientY-r.top)/r.height-.5)*-18;
+      card.style.transform=`perspective(900px) rotateY(${ox}deg) rotateX(${oy}deg) translateY(-10px)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+}
 
 /* ── STAR SPARKLE CLICK BURST ── */
 const sparkColors=['#9d6fff','#22d3ee','#f472b6','#0fd47a','#f6a608','#c4a6ff'];
@@ -2797,10 +2909,31 @@ document.querySelectorAll('.stat-n').forEach(el=>{
   if(el)el.textContent=v;
 })();
 
-/* ── AUTO FOOTER YEAR ── */
+/* ── CV BUTTON – Coming Soon toast ── */
+(function(){
+  const cvBtn=document.getElementById('cvBtn');
+  if(!cvBtn)return;
+  cvBtn.addEventListener('click',function(e){
+    e.preventDefault();
+    // Show a friendly toast
+    const t=document.createElement('div');
+    t.textContent='📚 CV coming soon — reach me at prashantproject01@gmail.com!';
+    t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(0);background:rgba(20,20,40,.95);color:#fff;border:1px solid rgba(157,111,255,.3);padding:12px 24px;border-radius:99px;font-size:.85rem;font-weight:700;z-index:99995;backdrop-filter:blur(12px);animation:toastPop .5s ease both,toastFade .4s ease 2.8s forwards;white-space:nowrap;box-shadow:0 4px 24px rgba(157,111,255,.3);';
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),3500);
+  });
+})();
+
+/* ── AUTO FOOTER YEAR + LAST UPDATED ── */
 (function(){
   const yr=document.getElementById('footerYear');
   if(yr)yr.textContent=new Date().getFullYear();
+  // Auto last-updated: show current month & year
+  const lu=document.getElementById('lastUpdated');
+  if(lu){
+    const d=new Date();
+    lu.textContent=d.toLocaleString('en-US',{month:'long',year:'numeric'});
+  }
 })();
 
 /* ── LIVE DAYS OF LEARNING COUNTER ── */
